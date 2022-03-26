@@ -1,18 +1,19 @@
+import React, { useState } from 'react'
 import type { AppProps } from 'next/app'
-import {
-  ColorScheme,
+import {   ColorScheme,
   ColorSchemeProvider,
-  MantineProvider,
-} from '@mantine/core'
-import { useState } from 'react'
+  MantineProvider, } from '@mantine/core'
+import '../styles/globals.css'
+import { SessionProvider } from 'next-auth/react'
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('dark')
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'))
   // const dark = colorScheme === 'dark';
 
   return (
+        <SessionProvider session={session}>
     <ColorSchemeProvider
       colorScheme={colorScheme}
       toggleColorScheme={toggleColorScheme}
@@ -54,6 +55,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
       </MantineProvider>
     </ColorSchemeProvider>
+    </SessionProvider>
   )
 }
 
