@@ -1,14 +1,10 @@
 import React from 'react'
 import { Box, Button, Group, Text, Title } from '@mantine/core'
-import { useSession, signIn, signOut } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 
 export function HeroSection() {
-  const { data: session } = useSession()
-  console.log(session)
-
   return (
     <Box sx={{ minHeight: '65vh' }}>
-      {session && <Button onClick={() => signOut()}>Sign out</Button>}
       <Group
         direction="column"
         sx={{
