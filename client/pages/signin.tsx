@@ -1,9 +1,11 @@
 import { Box, Button, Group, Center } from '@mantine/core'
 import React from 'react'
 import { getProviders, signIn, getSession } from 'next-auth/react'
+import { getToken } from 'next-auth/jwt'
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SignIn = ({ providers }: any) => {
+  console.log(getToken)
   return (
     <Box
       sx={(theme) => ({ background: theme.colors.dark[5], height: '100vh' })}
