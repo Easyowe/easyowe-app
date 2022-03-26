@@ -1,43 +1,54 @@
 import type { AppProps } from 'next/app'
-import { MantineProvider } from '@mantine/core'
-// import { theme } from '../theme'
+import { ColorScheme, ColorSchemeProvider, Container, MantineProvider } from '@mantine/core'
+import { useState } from 'react'
+
+
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
+  const toggleColorScheme = (value?: ColorScheme) =>
+    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+  const dark = colorScheme === 'dark';
+
   return (
-    <MantineProvider
-      theme={{
-        // https://mantine.dev/theming/extend-theme/#extend-or-replace-colors
-        colors: {
-          dark: [
-            '#F2F2F3',
-            '#E5E5E6',
-            '#CACACE',
-            '#B0B0B5',
-            '#95959D',
-            '#1A1A1C',
-            '#62626A',
-            '#4A4A4F',
-            '#313135',
-            '#19191A',
-          ],
-          primary: [
-            '#EBE9FC',
-            '#D8D3F8',
-            '#B1A7F1',
-            '#897BEA',
-            '#624EE4',
-            '#5E4AE3',
-            '#2F1BB1',
-            '#1B0A8E',
-            '#0A096D',
-            '#0A096D',
-          ],
-        },
-        primaryColor: 'primary',
-      }}
-    >
-      <Component {...pageProps} />
-    </MantineProvider>
+    <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+      <MantineProvider
+        theme={{
+          // https://mantine.dev/theming/extend-theme/#extend-or-replace-colors
+          colorScheme,
+          colors: {
+            dark: [
+              '#F2F2F3',
+              '#E5E5E6',
+              '#CACACE',
+              '#B0B0B5',
+              '#95959D',
+              '#62626A',
+              '#4A4A4F',
+              '#1A1A1C',
+              '#313135',
+              '#19191A',
+            ],
+            primary: [
+              '#EBE9FC',
+              '#D8D3F8',
+              '#B1A7F1',
+              '#897BEA',
+              '#624EE4',
+              '#5E4AE3',
+              '#2F1BB1',
+              '#1B0A8E',
+              '#0A096D',
+              '#0A096D',
+            ],
+          },
+          primaryColor: 'primary',
+        }} withGlobalStyles
+      >
+
+        <Component {...pageProps} />
+      </MantineProvider>
+    </ColorSchemeProvider>
   )
 }
 
