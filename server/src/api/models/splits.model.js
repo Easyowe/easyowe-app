@@ -15,7 +15,7 @@ const splitSchema = new mongoose.Schema(
     },
     category: {
       type: [String],
-      default: ["Food", "Grocery", "Transportation"],
+      //default: ["Food", "Grocery", "Transportation"],
     },
     image: {
       type: String,
@@ -123,4 +123,4 @@ splitSchema.statics = {
 /**
  * @typedef Splits
  */
-module.exports = mongoose.model("FriendRequests", splitSchema);
+module.exports = mongoose.model("Split", splitSchema);
