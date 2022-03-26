@@ -5,7 +5,7 @@ const Split = require('../models/splits.model');
 
 exports.createSplit = async (req, res, next) => {
   try {
-    let { name, category, image, creator, people, amount, type } = req.body;
+    let { name, category, image, creator, people, amount, type, isDeleted } = req.body;
 
     if (!people && !amount) {
       throw new APIError({
@@ -86,7 +86,7 @@ exports.getAllSplitsOfCreator = async (req, res, next) => {
 
 exports.updateSplit = async (req, res, next) => {
   try {
-    let { name, category, image, creator, people, amount, type } = req.body;
+    let { name, category, image, creator, people, amount, type, isDeleted } = req.body;
 
     const { splitId } = req.params;
 
@@ -106,7 +106,7 @@ exports.updateSplit = async (req, res, next) => {
 
     const saveSplit = await Split.findOneAndUpdate(
       { _id: splitId },
-      { name, category, image, creator, people, amount, type },
+      { name, category, image, creator, people, amount, type, isDeleted },
       { returnOriginal: false }
     );
 
