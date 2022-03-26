@@ -9,10 +9,10 @@ const APIError = require("../utils/APIError");
 const { env, jwtSecret, jwtExpirationInterval } = require("../../config/vars");
 
 /**
- * User Schema
+ * Friend Request Schema
  * @private
  */
-const userSchema = new mongoose.Schema(
+const friendRequestSchema = new mongoose.Schema(
   {
     email: {
       type: String,
@@ -176,41 +176,6 @@ userSchema.statics = {
   },
 
   /**
-   * Find user by email and tries to generate a JWT token
-   *
-   * @param {ObjectId} id - The objectId of user.
-   * @returns {Promise<User, APIError>}
-   */
-  async findAndGenerateToken(options) {
-    const { email, password, refreshObject } = options;
-    if (!email)
-      throw new APIError({
-        message: "An email is required to generate a token",
-      });
-
-    const user = await this.findOne({ email }).exec();
-    const err = {
-      status: httpStatus.UNAUTHORIZED,
-      isPublic: true,
-    };
-    if (password) {
-      if (user && (await user.passwordMatches(password))) {
-        return { user, accessToken: user.token() };
-      }
-      err.message = "Incorrect email or password";
-    } else if (refreshObject && refreshObject.userEmail === email) {
-      if (moment(refreshObject.expires).isBefore()) {
-        err.message = "Invalid refresh token.";
-      } else {
-        return { user, accessToken: user.token() };
-      }
-    } else {
-      err.message = "Incorrect email or refreshToken";
-    }
-    throw new APIError(err);
-  },
-
-  /**
    * List users in descending order of 'createdAt' timestamp.
    *
    * @param {number} skip - Number of users to be skipped.
@@ -226,55 +191,9 @@ userSchema.statics = {
       .limit(perPage)
       .exec();
   },
-
-  /**
-   * Return new validation error
-   * if error is a mongoose duplicate key error
-   *
-   * @param {Error} error
-   * @returns {Error|APIError}
-   */
-  checkDuplicateEmail(error) {
-    if (error.name === "MongoError" && error.code === 11000) {
-      return new APIError({
-        message: "Validation Error",
-        errors: [
-          {
-            field: "email",
-            location: "body",
-            messages: ['"email" already exists'],
-          },
-        ],
-        status: httpStatus.CONFLICT,
-        isPublic: true,
-        stack: error.stack,
-      });
-    }
-    return error;
-  },
-
-  async oAuthLogin({ service, id, email, name, picture }) {
-    const user = await this.findOne({
-      $or: [{ [`services.${service}`]: id }, { email }],
-    });
-    if (user) {
-      user.services[service] = id;
-      if (!user.name) user.name = name;
-      if (!user.picture) user.picture = picture;
-      return user.save();
-    }
-    const password = uuidv4();
-    return this.create({
-      services: { [service]: id },
-      email,
-      password,
-      name,
-      picture,
-    });
-  },
 };
 
 /**
- * @typedef User
+ * @typedef FriendRequests
  */
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("FriendRequests", userSchema);
