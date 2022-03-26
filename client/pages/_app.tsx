@@ -1,15 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import type { AppProps } from 'next/app'
-import { MantineProvider } from '@mantine/core'
+import {   ColorScheme,
+  ColorSchemeProvider,
+  MantineProvider, } from '@mantine/core'
 import '../styles/globals.css'
 import { SessionProvider } from 'next-auth/react'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+  const [colorScheme, setColorScheme] = useState<ColorScheme>('dark')
+  const toggleColorScheme = (value?: ColorScheme) =>
+    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'))
+  // const dark = colorScheme === 'dark';
+
   return (
-    <SessionProvider session={session}>
+        <SessionProvider session={session}>
+    <ColorSchemeProvider
+      colorScheme={colorScheme}
+      toggleColorScheme={toggleColorScheme}
+    >
       <MantineProvider
         theme={{
           // https://mantine.dev/theming/extend-theme/#extend-or-replace-colors
+          colorScheme,
           colors: {
             dark: [
               '#F2F2F3',
@@ -18,8 +30,8 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
               '#B0B0B5',
               '#95959D',
               '#1A1A1C',
-              '#62626A',
               '#4A4A4F',
+              '#1A1A1C',
               '#313135',
               '#19191A',
             ],
@@ -38,9 +50,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           },
           primaryColor: 'primary',
         }}
+        withGlobalStyles
       >
         <Component {...pageProps} />
       </MantineProvider>
+    </ColorSchemeProvider>
     </SessionProvider>
   )
 }
