@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               '#CACACE',
               '#B0B0B5',
               '#95959D',
-              '#62626A',
+              '#1A1A1C',
               '#4A4A4F',
               '#1A1A1C',
               '#313135',
