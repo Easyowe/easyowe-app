@@ -1,17 +1,11 @@
 import { ActivityCard } from '@components/ActivityCard';
 import React from 'react'
-import { TextInput, Checkbox, Button, Group, Box, Grid, Container } from '@mantine/core';
-import { useForm } from '@mantine/form';
+import { Box, Container } from '@mantine/core';
 import SearchBar from '@components/FriendsPage/SearchBar';
 
-type Props = {};
 
-const index = (props: Props) => {
-    const form = useForm({
-        initialValues: {
-            search: '',
-        },
-    });
+const index = () => {
+    
 
     const activityLog = [
         {
@@ -46,7 +40,7 @@ const index = (props: Props) => {
     return (
         <>
         <Container>
-            
+
             <SearchBar />
             <Box mx="auto">{fields}</Box>
             </Container>

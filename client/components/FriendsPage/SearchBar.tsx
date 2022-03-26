@@ -1,19 +1,14 @@
-import { ActivityCard } from '@components/ActivityCard';
 import React from 'react'
-import { TextInput, Checkbox, Button, Group, Box } from '@mantine/core';
+import { TextInput, Button } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import {
 
-    Text,
     Grid,
-    Title,
-    useMantineColorScheme,
 } from '@mantine/core'
 import classes from './SearchBar.module.css';
 
-type Props = {};
 
-const SearchBar = (props: Props) => {
+const SearchBar = () => {
     const form = useForm({
         initialValues: {
             search: '',
