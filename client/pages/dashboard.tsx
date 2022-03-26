@@ -7,14 +7,14 @@ import { NextPage } from 'next'
 import React from 'react'
 
 const Dashboard: NextPage = () => {
-    return (
-        <Container size='xl' m={50} >
-            <Overview />
-            <Forms />
-            <ActivityLog />
-            <ThemeButton />
-        </Container>
-    )
+  return (
+    <Container size="xl" py={52}>
+      <Overview />
+      <Forms />
+      <ActivityLog />
+      <ThemeButton />
+    </Container>
+  )
 }
 
 export default Dashboard

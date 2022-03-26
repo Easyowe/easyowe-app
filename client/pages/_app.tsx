@@ -1,17 +1,22 @@
 import type { AppProps } from 'next/app'
-import { ColorScheme, ColorSchemeProvider, Container, MantineProvider } from '@mantine/core'
+import {
+  ColorScheme,
+  ColorSchemeProvider,
+  MantineProvider,
+} from '@mantine/core'
 import { useState } from 'react'
 
-
-
 function MyApp({ Component, pageProps }: AppProps) {
-  const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
+  const [colorScheme, setColorScheme] = useState<ColorScheme>('dark')
   const toggleColorScheme = (value?: ColorScheme) =>
-    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
-  const dark = colorScheme === 'dark';
+    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'))
+  // const dark = colorScheme === 'dark';
 
   return (
-    <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+    <ColorSchemeProvider
+      colorScheme={colorScheme}
+      toggleColorScheme={toggleColorScheme}
+    >
       <MantineProvider
         theme={{
           // https://mantine.dev/theming/extend-theme/#extend-or-replace-colors
@@ -43,9 +48,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             ],
           },
           primaryColor: 'primary',
-        }} withGlobalStyles
+        }}
+        withGlobalStyles
       >
-
         <Component {...pageProps} />
       </MantineProvider>
     </ColorSchemeProvider>
