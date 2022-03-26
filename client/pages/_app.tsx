@@ -6,6 +6,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <MantineProvider
       theme={{
+        // https://mantine.dev/theming/extend-theme/#extend-or-replace-colors
         colors: {
           dark: [
             '#F2F2F3',
