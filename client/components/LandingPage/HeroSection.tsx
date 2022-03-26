@@ -1,9 +1,14 @@
 import React from 'react'
 import { Box, Button, Group, Text, Title } from '@mantine/core'
+import { useSession, signIn, signOut } from 'next-auth/react'
 
 export function HeroSection() {
+  const { data: session } = useSession()
+  console.log(session)
+
   return (
     <Box sx={{ minHeight: '65vh' }}>
+      {session && <Button onClick={() => signOut()}>Sign out</Button>}
       <Group
         direction="column"
         sx={{
@@ -43,6 +48,8 @@ export function HeroSection() {
           </Text>
           <Group>
             <Button
+              size="md"
+              onClick={() => signIn()}
               sx={(theme) => ({
                 backgroundColor: theme.colors.primary[5],
                 width: 'fit-content',
@@ -54,6 +61,7 @@ export function HeroSection() {
               Log In
             </Button>
             <Button
+              size="md"
               variant="subtle"
               sx={(theme) => ({
                 color: theme.colors.dark[1],
