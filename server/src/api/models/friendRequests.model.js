@@ -1,12 +1,8 @@
 const mongoose = require("mongoose");
 const httpStatus = require("http-status");
 const { omitBy, isNil } = require("lodash");
-const bcrypt = require("bcryptjs");
-const moment = require("moment-timezone");
-const jwt = require("jwt-simple");
-const uuidv4 = require("uuidv4");
+
 const APIError = require("../utils/APIError");
-const { env, jwtSecret, jwtExpirationInterval } = require("../../config/vars");
 
 /**
  * Friend Request Schema
@@ -14,65 +10,19 @@ const { env, jwtSecret, jwtExpirationInterval } = require("../../config/vars");
  */
 const friendRequestSchema = new mongoose.Schema(
   {
-    email: {
-      type: String,
-      match: /^\S+@\S+\.\S+$/,
+    userId: {
+      type: mongoose.Schema.Types.ObjectId, // ref: userSchema
       required: true,
-      unique: true,
-      trim: true,
-      lowercase: true,
     },
-    password: {
-      type: String,
-      required: true,
-      minlength: 6,
-      maxlength: 128,
-    },
+
     username: {
       type: String,
-      maxlength: 128,
-      index: true,
-      trim: true,
+      required: true,
     },
-    profileImage: {
+    status: {
       type: String,
-      trim: true,
-    },
-    friends: [
-      {
-        userId: mongoose.Schema.Types.ObjectId,
-        username: String,
-      },
-    ],
-    balance: {
-      type: Number,
-      default: 0,
-    },
-    isEmailVerified: {
-      type: Boolean,
-      default: false,
-    },
-    // accessToken,
-    // github
-    // google
-    groupId: [
-      {
-        type: mongoose.Schema.Types.ObjectId, // ref GroupSchema
-      },
-    ],
-    splitId: [
-      {
-        type: mongoose.Schema.Types.ObjectId, // ref SplitsSchema
-      },
-    ],
-    friendRequests: [
-      {
-        type: mongoose.Schema.Types.ObjectId, // ref: FriendRequestSchema
-      },
-    ],
-    score: {
-      type: Number,
-      default: 5.0,
+      enum: ["accepted", "pending", "rejected"],
+      default: "pending",
     },
   },
 
@@ -83,46 +33,12 @@ const friendRequestSchema = new mongoose.Schema(
 );
 
 /**
- * Add your
- * - pre-save hooks
- * - validations
- * - virtuals
- */
-userSchema.pre("save", async function save(next) {
-  try {
-    if (!this.isModified("password")) return next();
-
-    const rounds = env === "test" ? 1 : 10;
-
-    const hash = await bcrypt.hash(this.password, rounds);
-    this.password = hash;
-
-    return next();
-  } catch (error) {
-    return next(error);
-  }
-});
-
-/**
  * Methods
  */
-userSchema.method({
+friendRequestSchema.method({
   transform() {
     const transformed = {};
-    const fields = [
-      "id",
-      "username",
-      "score",
-      "email",
-      "profileImage",
-      "friends",
-      "balance",
-      "isEmailVerified",
-      "groupId",
-      "splitId",
-      "friendRequests",
-      "createdAt",
-    ];
+    const fields = ["id", "userId", "username", "status"];
 
     fields.forEach((field) => {
       transformed[field] = this[field];
@@ -130,44 +46,30 @@ userSchema.method({
 
     return transformed;
   },
-
-  token() {
-    const payload = {
-      exp: moment().add(jwtExpirationInterval, "minutes").unix(),
-      iat: moment().unix(),
-      sub: this._id,
-    };
-    return jwt.encode(payload, jwtSecret);
-  },
-
-  async passwordMatches(password) {
-    return bcrypt.compare(password, this.password);
-  },
 });
 
 /**
  * Statics
  */
-userSchema.statics = {
+friendRequestSchema.statics = {
   /**
-   * Get user
    *
-   * @param {ObjectId} id - The objectId of user.
-   * @returns {Promise<User, APIError>}
+   * @param {ObjectId} id - The objectId of friendRequest.
+   * @returns {Promise<FriendRequests, APIError>}
    */
   async get(id) {
     try {
-      let user;
+      let friendRequest;
 
       if (mongoose.Types.ObjectId.isValid(id)) {
-        user = await this.findById(id).exec();
+        friendRequest = await this.findById(id).exec();
       }
-      if (user) {
-        return user;
+      if (friendRequest) {
+        return friendRequest;
       }
 
       throw new APIError({
-        message: "User does not exist",
+        message: "Friend Request does not exist",
         status: httpStatus.NOT_FOUND,
       });
     } catch (error) {
@@ -176,14 +78,14 @@ userSchema.statics = {
   },
 
   /**
-   * List users in descending order of 'createdAt' timestamp.
+   * List friend requests in descending order of 'createdAt' timestamp.
    *
-   * @param {number} skip - Number of users to be skipped.
-   * @param {number} limit - Limit number of users to be returned.
-   * @returns {Promise<User[]>}
+   * @param {number} skip - Number of friend requests to be skipped.
+   * @param {number} limit - Limit number of friend requests to be returned.
+   * @returns {Promise<FriendRequests[]>}
    */
-  list({ page = 1, perPage = 30, name, email, role }) {
-    const options = omitBy({ name, email, role }, isNil);
+  list({ page = 1, perPage = 30, userId }) {
+    const options = omitBy({ userId }, isNil);
 
     return this.find(options)
       .sort({ createdAt: -1 })
@@ -196,4 +98,4 @@ userSchema.statics = {
 /**
  * @typedef FriendRequests
  */
-module.exports = mongoose.model("FriendRequests", userSchema);
+module.exports = mongoose.model("FriendRequests", friendRequestSchema);
