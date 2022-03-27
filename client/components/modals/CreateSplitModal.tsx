@@ -14,6 +14,7 @@ import { useForm, zodResolver } from '@mantine/form'
 import { CurrencyDollar } from 'tabler-icons-react'
 import api from '@/lib/axiosStore'
 import { useSession } from 'next-auth/react'
+import { useQueryClient } from 'react-query'
 
 type Props = {
   opened: boolean
@@ -25,7 +26,9 @@ const schema = z.object({
   category: z.string(),
   people: z.array(z.string()).or(z.string()),
 })
+
 export function CreateSplitModal({ opened, setOpened }: Props) {
+  const queryClient = useQueryClient()
   const { data: session } = useSession()
   console.log(session)
   const { colors } = useMantineTheme()
@@ -34,7 +37,7 @@ export function CreateSplitModal({ opened, setOpened }: Props) {
     initialValues: {
       name: '',
       people: '',
-      amount: '',
+      amount: 0,
       category: '',
     },
   })
@@ -61,7 +64,10 @@ export function CreateSplitModal({ opened, setOpened }: Props) {
                 },
                 {}
               )
-              .then((res) => console.log(res))
+              .then(() => {
+                queryClient.invalidateQueries(['splits'])
+                setOpened(false)
+              })
               .catch((err) => console.error(err))
           )}
         >

@@ -1,23 +1,23 @@
-const express = require("express");
-const { validate, ValidationError, Joi } = require("express-validation");
-const controller = require("../../controllers/user.controller");
-const { authorize, LOGGED_USER } = require("../../middlewares/auth");
+const express = require('express');
+const { validate, ValidationError, Joi } = require('express-validation');
+const controller = require('../../controllers/user.controller');
+const { authorize, LOGGED_USER } = require('../../middlewares/auth');
 const {
   listUsers,
   createUser,
   replaceUser,
   updateUser,
-} = require("../../validations/user.validation");
+} = require('../../validations/user.validation');
 
 const router = express.Router();
 
 /**
  * Load user when API with userId route parameter is hit
  */
-router.param("userId", controller.load);
+router.param('userId', controller.load);
 
 router
-  .route("/")
+  .route('/')
   /**
    * @api {get} v1/users List Users
    * @apiDescription Get a list of users
@@ -63,7 +63,7 @@ router
   .post(validate(createUser), controller.create);
 
 router
-  .route("/profile")
+  .route('/profile')
   /**
    * @api {get} v1/users/profile User Profile
    * @apiDescription Get logged in user profile information
@@ -85,7 +85,7 @@ router
   .get(authorize(), controller.loggedIn);
 
 router
-  .route("/:userId")
+  .route('/:userId')
   /**
    * @api {get} v1/users/:id Get User
    * @apiDescription Get user information
@@ -105,7 +105,7 @@ router
    * @apiError (Unauthorized 401) Unauthorized Only authenticated users can access the data
    * @apiError (Not Found 404)    NotFound     User does not exist
    */
-  .get(authorize(LOGGED_USER), controller.get)
+  .get(controller.get)
   /**
    * @api {put} v1/users/:id Replace User
    * @apiDescription Replace the whole user document with a new one

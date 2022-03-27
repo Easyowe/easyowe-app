@@ -25,8 +25,9 @@ const FeatureSection = () => {
           sx={(theme) => ({ width: '52ch', color: theme.colors.dark[4] })}
           size="xl"
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam,
-          purus sit amet luctus venenatis
+          With Easyowe you don’t have to worry about that struggle, this app is
+          an easy way to manage and keep track of what you owe the friend that
+          paid for you, or which friends owe you and how much.
         </Text>
       </Group>
       <Group direction="row" position="apart" sx={{ position: 'relative' }}>
@@ -34,27 +35,27 @@ const FeatureSection = () => {
           <FeatureTile
             title="P2P"
             subtitle="Groups"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis"
+            description="Have as many groups to properly control your debts as you want."
           />
           <FeatureTile
-            title="P2P"
-            subtitle="Groups"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis"
+            title="Calculated"
+            subtitle="Efficiency"
+            description="Easily calculate your debts and get the best possible result."
           />
           <FeatureTile
-            title="P2P"
-            subtitle="Groups"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis"
+            title="Visual Guide"
+            subtitle="Charts"
+            description="See how your debts are distributed and how you are doing, on a time based scale."
           />
           <FeatureTile
-            title="P2P"
-            subtitle="Groups"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis"
+            title="Balance Tracking"
+            subtitle="Wallet"
+            description="Keep track of your wallet balance and see how much you have left to pay."
           />
         </SimpleGrid>
         <Box
           sx={(theme) => ({
-            background: theme.colors.dark[7],
+            background: theme.colors.dark[8],
             width: '24em',
             height: '42em',
             borderRadius: '2em',
@@ -84,12 +85,12 @@ const FeatureSection = () => {
         </Title>
         <Group direction="row">
           <Text size="xl" sx={{ flex: 1 }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam,
-            purus sit amet luctus venenatis
+            Easyowe is a tool that helps you to keep track of your debts and how
+            much you owe.
           </Text>
           <Text size="xl" sx={{ flex: 1 }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam,
-            purus sit amet luctus venenatis
+            You can add a record once and Easyowe will update automatically and
+            remove human error.
           </Text>
         </Group>
       </Group>

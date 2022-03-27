@@ -4,73 +4,84 @@ import { signIn } from 'next-auth/react'
 
 export function HeroSection() {
   return (
-    <Box sx={{ minHeight: '65vh' }}>
-      <Group
-        direction="column"
-        sx={{
-          width: '60%',
-        }}
-      >
-        <Title
-          order={1}
-          sx={{
-            fontSize: '4em',
-            lineHeight: '1',
-          }}
-        >
-          Eliminate arguments and maintain relationships with help of{' '}
-          <span
-            style={{
-              color: '#5E4AE3',
-            }}
-          >
-            Easyowe
-          </span>
-          .
-        </Title>
+    <Box sx={{ height: '65vh', overflow: 'hidden' }}>
+      <Group>
         <Group
+          direction="column"
           sx={{
             width: '60%',
           }}
         >
-          <Text
-            sx={(theme) => ({
-              color: theme.colors.dark[4],
-            })}
-            size="xl"
+          <Title
+            order={1}
+            sx={{
+              fontSize: '4em',
+              lineHeight: '1',
+            }}
           >
-            Easy way to manage & keep track of owing friends and friends who owe
-            you.
-          </Text>
-          <Group>
-            <Button
-              size="md"
-              onClick={() => signIn()}
-              sx={(theme) => ({
-                backgroundColor: theme.colors.primary[5],
-                width: 'fit-content',
-                '&:hover': {
-                  backgroundColor: theme.colors.primary[4],
-                },
-              })}
+            Eliminate arguments and maintain relationships with help of{' '}
+            <span
+              style={{
+                color: '#5E4AE3',
+              }}
             >
-              Log In
-            </Button>
-            <Button
-              size="md"
-              variant="subtle"
+              Easyowe
+            </span>
+            .
+          </Title>
+          <Group
+            sx={{
+              width: '60%',
+            }}
+          >
+            <Text
               sx={(theme) => ({
-                color: theme.colors.dark[1],
-                '&:hover': {
-                  color: theme.colors.dark[0],
-                  backgroundColor: 'transparent',
-                },
+                color: theme.colors.dark[4],
               })}
+              size="xl"
             >
-              Learn More
-            </Button>
+              Easy way to manage & keep track of owing friends and friends who
+              owe you.
+            </Text>
+            <Group>
+              <Button
+                size="md"
+                onClick={() => signIn()}
+                sx={(theme) => ({
+                  backgroundColor: theme.colors.primary[5],
+                  width: 'fit-content',
+                  '&:hover': {
+                    backgroundColor: theme.colors.primary[4],
+                  },
+                })}
+              >
+                Log In
+              </Button>
+              <Button
+                size="md"
+                variant="subtle"
+                sx={(theme) => ({
+                  color: theme.colors.dark[1],
+                  '&:hover': {
+                    color: theme.colors.dark[0],
+                    backgroundColor: 'transparent',
+                  },
+                })}
+              >
+                Learn More
+              </Button>
+            </Group>
           </Group>
         </Group>
+        <Box
+          sx={(theme) => ({
+            background: theme.colors.dark[8],
+            width: '24em',
+            height: '42em',
+            borderRadius: '2em',
+            transform: 'skew(-6deg)',
+          })}
+        ></Box>
       </Group>
     </Box>
   )

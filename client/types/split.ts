@@ -1,7 +1,7 @@
 export interface SplitType {
-  id: string
+  _id?: string
   name: string
-  people: string[]
+  people: string[] | string
   category: string
   amount: number
 }

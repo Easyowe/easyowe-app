@@ -7,7 +7,11 @@ import { useSession } from 'next-auth/react'
 
 const ActivityLog = () => {
   const { data: session } = useSession()
-  const { data: splits, error, isLoading } = useSplits(session?.user?.id)
+  const {
+    data: splits,
+    error,
+    isLoading,
+  } = useSplits(session?.user?.id as string)
 
   return (
     <Box mx="auto">
@@ -15,7 +19,7 @@ const ActivityLog = () => {
       {isLoading && <div>Loading...</div>}
       {splits &&
         splits.map((split: SplitType) => (
-          <ActivityCard key={split.id} activity={split} />
+          <ActivityCard key={split._id} activity={split} />
         ))}
     </Box>
   )

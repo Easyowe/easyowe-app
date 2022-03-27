@@ -29,7 +29,7 @@ export default NextAuth({
     },
   },
   callbacks: {
-    jwt: async ({ token, user, isNewUser }) => {
+    jwt: async ({ token, user }) => {
       if (typeof user !== typeof undefined) token.user = user
       return token
     },
