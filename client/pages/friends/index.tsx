@@ -1,7 +1,5 @@
-import { ActivityCard } from '@components/ActivityCard'
 import React from 'react'
 import {
-  Box,
   Button,
   Container,
   Grid,
@@ -17,6 +15,7 @@ import { useSession } from 'next-auth/react'
 
 const Friends = () => {
   const { data: session } = useSession()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data } = useQuery<any>('user', () =>
     api.get(`/users/${session?.user?.id}`)
   )

@@ -12,7 +12,6 @@ const ActivityLog = () => {
     error,
     isLoading,
   } = useSplits(session?.user?.id as string)
-  console.log(session?.user?.id)
 
   return (
     <Box mx="auto">
