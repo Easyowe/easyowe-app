@@ -6,6 +6,7 @@ import Dashboard from './dashboard'
 
 const Home: NextPage = () => {
   const { data: session } = useSession()
+
   return (
     <>
       <Head>
@@ -16,7 +17,7 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
+      <Dashboard />
       {session ? <Dashboard /> : <LandingPage />}
     </>
   )
