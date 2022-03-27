@@ -29,7 +29,7 @@ const Navbar = () => {
         })}
       >
         <Group>
-          {session?.user?.name}
+          {session?.user?.username}
           <Menu>
             <Menu.Label>Account</Menu.Label>
             <Menu.Item

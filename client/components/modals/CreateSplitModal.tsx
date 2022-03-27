@@ -14,6 +14,8 @@ import { useForm, zodResolver } from '@mantine/form'
 import { CurrencyDollar } from 'tabler-icons-react'
 import api from '@/lib/axiosStore'
 import { useSession } from 'next-auth/react'
+import { useMutation, useQueryClient } from 'react-query'
+import { SplitType } from 'types/split'
 
 type Props = {
   opened: boolean
@@ -25,7 +27,9 @@ const schema = z.object({
   category: z.string(),
   people: z.array(z.string()).or(z.string()),
 })
+
 export function CreateSplitModal({ opened, setOpened }: Props) {
+  const queryClient = useQueryClient()
   const { data: session } = useSession()
   console.log(session)
   const { colors } = useMantineTheme()
@@ -34,9 +38,13 @@ export function CreateSplitModal({ opened, setOpened }: Props) {
     initialValues: {
       name: '',
       people: '',
-      amount: '',
+      amount: 0,
       category: '',
     },
+  })
+
+  const mutation = useMutation((values: SplitType) => {
+    return api.post('/split', values)
   })
   return (
     <Modal
@@ -51,19 +59,19 @@ export function CreateSplitModal({ opened, setOpened }: Props) {
     >
       <Box>
         <form
-          onSubmit={form.onSubmit((values) =>
-            api
-              .post(
-                '/split/',
-                {
-                  ...values,
-                  creator: session?.user?.id,
-                },
-                {}
-              )
-              .then((res) => console.log(res))
-              .catch((err) => console.error(err))
-          )}
+        // onSubmit={form.onSubmit((values) =>
+        //   api
+        //     .post(
+        //       '/split/',
+        //       {
+        //         ...values,
+        //         creator: session?.user?.id,
+        //       },
+        //       {}
+        //     )
+        //     .then((res) => console.log(res))
+        //     .catch((err) => console.error(err))
+        // )}
         >
           <TextInput
             size="sm"
@@ -139,7 +147,11 @@ export function CreateSplitModal({ opened, setOpened }: Props) {
           />
 
           <Group position="right" mt="xl">
-            <Button type="submit" sx={{ background: colors.primary[5] }}>
+            <Button
+              onClick={() => mutation.mutate(form.values)}
+              type="submit"
+              sx={{ background: colors.primary[5] }}
+            >
               Submit
             </Button>
           </Group>
