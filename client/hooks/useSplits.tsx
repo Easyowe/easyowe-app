@@ -8,7 +8,7 @@ const fetchSplits = async (id: string) => {
 }
 
 const useSplits = (id: string) => {
-  return useQuery<SplitType[], Error>('split', () => fetchSplits(id))
+  return useQuery<SplitType[], Error>('splits', () => fetchSplits(id))
 }
 
 export { fetchSplits, useSplits }
