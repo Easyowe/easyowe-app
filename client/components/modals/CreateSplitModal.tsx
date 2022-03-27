@@ -58,7 +58,7 @@ export function CreateSplitModal({ opened, setOpened }: Props) {
         <form
           onSubmit={form.onSubmit((values) =>
             api
-              .post('splits', values)
+              .post('/split', values)
               .then((res) => console.log(res))
               .catch((err) => console.error(err))
           )}
