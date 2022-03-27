@@ -3,7 +3,7 @@ import { Group, Menu, Text, useMantineTheme } from '@mantine/core'
 import { useSession, signOut } from 'next-auth/react'
 import React from 'react'
 import { Plus, Friends, ArrowsLeftRight } from 'tabler-icons-react'
-// import { useModals } from '@mantine/modals'
+import Link from 'next/link'
 
 // type Props = {}
 
@@ -29,7 +29,9 @@ const Navbar = () => {
         })}
       >
         <Group>
-          {session?.user?.username}
+          <Link href={'/dashboard'}>
+            <a>{session?.user?.username}</a>
+          </Link>
           <Menu>
             <Menu.Label>Account</Menu.Label>
             <Menu.Item
@@ -60,7 +62,9 @@ const Navbar = () => {
           </Menu>
           <Group sx={{ cursor: 'pointer', userSelect: 'none' }} spacing={2}>
             <Friends color={colors.dark[1]} size={18} />
-            <Text>Friends</Text>
+            <Link href={'/friends'}>
+              <a>Friends</a>
+            </Link>
           </Group>
         </Group>
       </Group>

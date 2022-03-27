@@ -1,52 +1,85 @@
 import { ActivityCard } from '@components/ActivityCard'
 import React from 'react'
-import { Box, Container, Group } from '@mantine/core'
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Group,
+  Text,
+  useMantineColorScheme,
+} from '@mantine/core'
 import SearchBar from '@components/FriendsPage/SearchBar'
 import Navbar from '@components/Navbar'
+import api from '@/lib/axiosStore'
+import { useQuery } from 'react-query'
+import { useSession } from 'next-auth/react'
 
-const index = () => {
-  const activityLog = [
-    {
-      name: 'Jon Doe',
-      date: 'NO RECORDED ACTIVITY',
-      value: 24.31,
-    },
-    {
-      name: 'Jon Doe',
-      date: 'NO RECORDED ACTIVITY',
-      value: 24.31,
-    },
-    {
-      name: 'Jon Doe',
-      date: 'NO RECORDED ACTIVITY',
-      value: 24.31,
-    },
-    {
-      name: 'Jon Doe',
-      date: 'NO RECORDED ACTIVITY',
-      value: 24.31,
-    },
-  ]
+const Friends = () => {
+  const { data: session } = useSession()
+  const { data } = useQuery<any>('user', () =>
+    api.get(`/users/${session?.user?.id}`)
+  )
 
-  // const renderActCard = () => (
+  const { colorScheme } = useMantineColorScheme()
 
-  // )
-
-  const fields = activityLog.map((activity, index) => (
-    <ActivityCard key={index} activity={activity} />
-  ))
   return (
     <>
       <Navbar />
-      <Container px="xs">
+      <Container size={'md'}>
         <Group>
           <SearchBar />
         </Group>
 
-        <Box mx="auto">{fields}</Box>
+        <Group direction="column" sx={{ width: '100%' }} align="center">
+          {data?.data.friends?.map((friend: { username: string }) => (
+            <Group
+              key={friend.username}
+              mt="xs"
+              sx={(theme) => ({
+                borderColor:
+                  colorScheme === 'dark'
+                    ? theme.colors.dark[8]
+                    : theme.colors.dark[2],
+                borderStyle: 'solid',
+                borderRadius: 15,
+                width: '100%',
+              })}
+              p={28}
+            >
+              <Grid
+                justify="space-between"
+                align="center"
+                style={{
+                  width: '100%',
+                }}
+              >
+                <Grid.Col span={6}>
+                  <Group spacing={52}>
+                    <Text weight={800} sx={{ fontSize: '1.5em' }}>
+                      {friend.username}
+                    </Text>
+                  </Group>
+                </Grid.Col>
+                <Grid.Col span={2}>
+                  <Button
+                    sx={(theme) => ({
+                      padding: '0 2em',
+                      backgroundColor: theme.colors.primary[5],
+                    })}
+                    variant="filled"
+                    radius={999}
+                  >
+                    View
+                  </Button>
+                </Grid.Col>
+              </Grid>
+            </Group>
+          ))}
+        </Group>
       </Container>
     </>
   )
 }
 
-export default index
+export default Friends
