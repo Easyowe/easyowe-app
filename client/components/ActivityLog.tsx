@@ -3,9 +3,11 @@ import { Box } from '@mantine/core'
 import React from 'react'
 import { useSplits } from 'hooks/useSplits'
 import { SplitType } from 'types/split'
+import { useSession } from 'next-auth/react'
 
 const ActivityLog = () => {
-  const { data: splits, error, isLoading } = useSplits()
+  const { data: session } = useSession()
+  const { data: splits, error, isLoading } = useSplits(session?.user?.id)
 
   return (
     <Box mx="auto">
