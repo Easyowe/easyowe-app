@@ -1,20 +1,32 @@
 {
-  "splits": [
+  "split": [
     {
       "id": 1,
-      "name": "Split 1",
-      "people": [
-        {
-          "id": 1,
-          "name": "Person 1",
-          "amount": 100
-        },
-        {
-          "id": 2,
-          "name": "Person 2",
-          "amount": 200
-        }
-      ]
+      "amount": 20,
+      "category": "Food",
+      "name": "Test Title",
+      "people": "John Doe"
+    },
+    {
+      "name": "Test",
+      "people": "Test",
+      "amount": 20,
+      "category": "Bills",
+      "id": 3
+    },
+    {
+      "name": "Night Out with the Boys ",
+      "people": "Frank, Joey",
+      "amount": 32,
+      "category": "Bills",
+      "id": 4
+    },
+    {
+      "name": "test 2",
+      "people": "test",
+      "amount": 23,
+      "category": "Bills",
+      "id": 5
     }
   ]
 }

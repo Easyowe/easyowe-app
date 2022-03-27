@@ -3,7 +3,7 @@ import axios from 'axios'
 const URL =
   process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_DEV_API_URL
 
-const instance = axios.create({ baseURL: URL })
+const instance = axios.create({ baseURL: 'http://localhost:3001/v1' })
 instance.interceptors.request.use((config) => {
   config.params = {
     // add your default ones

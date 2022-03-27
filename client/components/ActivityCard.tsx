@@ -7,10 +7,11 @@ import {
   Title,
   useMantineColorScheme,
 } from '@mantine/core'
+import { SplitType } from 'types/split'
 
 type Props = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  activity: any
+  activity: SplitType
 }
 
 export function ActivityCard(props: Props) {
@@ -34,16 +35,20 @@ export function ActivityCard(props: Props) {
           width: '100%',
         }}
       >
-        <Grid.Col span={4}>
+        <Grid.Col span={6}>
           <Group spacing={52}>
             <Text weight={800} sx={{ fontSize: '1.5em' }}>
-              ${props.activity.value}
+              ${props.activity.amount}
             </Text>
             <Group direction="column" spacing={0}>
               <Text size="xs" weight={500}>
-                {props.activity.date}
+                {props.activity.category}
               </Text>
-              <Title order={3} align="justify" sx={{ fontSize: '2em' }}>
+              <Title
+                order={3}
+                align="justify"
+                sx={{ fontSize: '2em', whiteSpace: 'pre-wrap' }}
+              >
                 {props.activity.name}
               </Title>
             </Group>

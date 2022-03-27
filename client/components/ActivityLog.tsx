@@ -1,26 +1,24 @@
 import { ActivityCard } from './ActivityCard'
 import { Box } from '@mantine/core'
-import { useForm, formList } from '@mantine/form'
 import React from 'react'
+import { useSplits } from 'hooks/useSplits'
+import { SplitType } from 'types/split'
+import { useSession } from 'next-auth/react'
 
 const ActivityLog = () => {
-  const form = useForm({
-    initialValues: {
-      activityLog: formList([
-        {
-          name: 'Jon Doe',
-          date: 'NO RECORDED ACTIVITY',
-          value: 24.31,
-        },
-      ]),
-    },
-  })
+  const { data: session } = useSession()
+  const { data: splits, error, isLoading } = useSplits(session?.user?.id)
 
-  const fields = form.values.activityLog.map((activity, index) => (
-    <ActivityCard key={index} activity={activity} />
-  ))
-
-  return <Box mx="auto">{fields}</Box>
+  return (
+    <Box mx="auto">
+      {error && <div>{error.message}</div>}
+      {isLoading && <div>Loading...</div>}
+      {splits &&
+        splits.map((split: SplitType) => (
+          <ActivityCard key={split.id} activity={split} />
+        ))}
+    </Box>
+  )
 }
 
 export default ActivityLog
