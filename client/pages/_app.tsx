@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
               '#1A1A1C',
               '#4A4A4F',
               '#1A1A1C',
-              '#313135',
+              '#2B2B31',
               '#19191A',
             ],
             primary: [
