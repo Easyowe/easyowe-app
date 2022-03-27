@@ -14,8 +14,7 @@ import { useForm, zodResolver } from '@mantine/form'
 import { CurrencyDollar } from 'tabler-icons-react'
 import api from '@/lib/axiosStore'
 import { useSession } from 'next-auth/react'
-import { useMutation, useQueryClient } from 'react-query'
-import { SplitType } from 'types/split'
+import { useQueryClient } from 'react-query'
 
 type Props = {
   opened: boolean
@@ -42,10 +41,6 @@ export function CreateSplitModal({ opened, setOpened }: Props) {
       category: '',
     },
   })
-
-  const mutation = useMutation((values: SplitType) => {
-    return api.post('/split', values)
-  })
   return (
     <Modal
       opened={opened}
@@ -59,19 +54,22 @@ export function CreateSplitModal({ opened, setOpened }: Props) {
     >
       <Box>
         <form
-        // onSubmit={form.onSubmit((values) =>
-        //   api
-        //     .post(
-        //       '/split/',
-        //       {
-        //         ...values,
-        //         creator: session?.user?.id,
-        //       },
-        //       {}
-        //     )
-        //     .then((res) => console.log(res))
-        //     .catch((err) => console.error(err))
-        // )}
+          onSubmit={form.onSubmit((values) =>
+            api
+              .post(
+                '/split/',
+                {
+                  ...values,
+                  creator: session?.user?.id,
+                },
+                {}
+              )
+              .then(() => {
+                queryClient.invalidateQueries(['splits'])
+                setOpened(false)
+              })
+              .catch((err) => console.error(err))
+          )}
         >
           <TextInput
             size="sm"
@@ -147,11 +145,7 @@ export function CreateSplitModal({ opened, setOpened }: Props) {
           />
 
           <Group position="right" mt="xl">
-            <Button
-              onClick={() => mutation.mutate(form.values)}
-              type="submit"
-              sx={{ background: colors.primary[5] }}
-            >
+            <Button type="submit" sx={{ background: colors.primary[5] }}>
               Submit
             </Button>
           </Group>
