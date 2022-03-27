@@ -31,10 +31,10 @@ export default NextAuth({
   callbacks: {
     jwt: async ({ token, user, isNewUser }) => {
       console.log('USER', user)
-      if (typeof user !== typeof undefined) token.user = user.
+      if (typeof user !== typeof undefined) token.user = user
       return token
     },
-    session: async ({user, token, user}) => {
+    session: async ({ user, token, user }) => {
       session.accessToken = token.accessToken
       session.user = user
       return session
