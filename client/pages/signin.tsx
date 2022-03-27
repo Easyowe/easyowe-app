@@ -1,4 +1,5 @@
 import { Box, Button, Group, Center, PasswordInput, Container, Grid, Text, Title, TextInput } from '@mantine/core'
+=======
 import React from 'react'
 import { getProviders, signIn, getSession } from 'next-auth/react'
 import { getToken } from 'next-auth/jwt'
@@ -176,6 +177,7 @@ const SignIn = ({ providers }: any) => {
 
     //   </Group>
     // </Box>
+
   )
 }
 
