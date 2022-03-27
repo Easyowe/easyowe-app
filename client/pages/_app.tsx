@@ -7,16 +7,18 @@ import {
 } from '@mantine/core'
 import '../styles/globals.css'
 import { SessionProvider } from 'next-auth/react'
+import { ModalsProvider } from '@mantine/modals'
+// import * as modals from '@components/modals'
+// import CreateSplitModal from '@components/modals/CreateSplitModal'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('dark')
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'))
   // const dark = colorScheme === 'dark';
-  
+
   return (
     <SessionProvider session={session}>
-
       <MantineProvider
         theme={{
           // https://mantine.dev/theming/extend-theme/#extend-or-replace-colors

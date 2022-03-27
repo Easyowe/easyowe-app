@@ -1,0 +1,20 @@
+import React from 'react'
+import { ContextModalProps } from '@mantine/modals'
+import { Text, Button } from '@mantine/core'
+
+const CreateSplitModal = ({
+  context,
+  id,
+  innerProps,
+}: ContextModalProps<{ modalBody: string }>) => {
+  return (
+    <>
+      <Text size="sm">{innerProps.modalBody}</Text>
+      <Button fullWidth mt="md" onClick={() => context.closeModal(id)}>
+        Close modal
+      </Button>
+    </>
+  )
+}
+
+export default CreateSplitModal
