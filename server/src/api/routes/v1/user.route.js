@@ -105,7 +105,8 @@ router
    * @apiError (Unauthorized 401) Unauthorized Only authenticated users can access the data
    * @apiError (Not Found 404)    NotFound     User does not exist
    */
-  .get(authorize(LOGGED_USER), controller.get)
+ // .get(authorize(LOGGED_USER), controller.get)
+  .get(controller.getUserById)
   /**
    * @api {put} v1/users/:id Replace User
    * @apiDescription Replace the whole user document with a new one
