@@ -53,12 +53,14 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         }}
         withGlobalStyles
       >
-        <ColorSchemeProvider
-          colorScheme={colorScheme}
-          toggleColorScheme={toggleColorScheme}
-        >
-          <Component {...pageProps} />
-        </ColorSchemeProvider>
+        <ModalsProvider>
+          <ColorSchemeProvider
+            colorScheme={colorScheme}
+            toggleColorScheme={toggleColorScheme}
+          >
+            <Component {...pageProps} />
+          </ColorSchemeProvider>
+        </ModalsProvider>
       </MantineProvider>
     </SessionProvider>
   )
