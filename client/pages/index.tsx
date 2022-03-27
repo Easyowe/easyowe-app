@@ -3,9 +3,18 @@ import LandingPage from '@components/LandingPage'
 import Head from 'next/head'
 import { useSession } from 'next-auth/react'
 import Dashboard from './dashboard'
+import { useEffect } from 'react'
+import { useState } from 'react'
 
 const Home: NextPage = () => {
-  const { data: session } = useSession()
+  const { data: session } = useSession();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(false)
+  }, [session])
+
+  if (!session) return <LandingPage />;
   return (
     <>
       <Head>
@@ -16,8 +25,8 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      {session ? <Dashboard /> : <LandingPage />}
+      <Dashboard /> 
+      {/* {session ? : } */}
     </>
   )
 }
