@@ -1,6 +1,6 @@
-const httpStatus = require("http-status");
-const { omit } = require("lodash");
-const User = require("../models/user.model");
+const httpStatus = require('http-status');
+const { omit } = require('lodash');
+const User = require('../models/user.model');
 
 /**
  * Load user and append to req.
@@ -51,7 +51,7 @@ exports.replace = async (req, res, next) => {
   try {
     const { user } = req.locals;
     const newUser = new User(req.body);
-    const newUserObject = omit(newUser.toObject(), "_id", ommitRole);
+    const newUserObject = omit(newUser.toObject(), '_id', ommitRole);
 
     await user.updateOne(newUserObject, { override: true, upsert: true });
     const savedUser = await User.findById(user._id);
@@ -83,6 +83,17 @@ exports.update = (req, res, next) => {
 exports.list = async (req, res, next) => {
   try {
     const users = await User.list(req.query);
+    const transformedUsers = users.map((user) => user.transform());
+    res.json(transformedUsers);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.listByEmail = async (req, res, next) => {
+  try {
+    const { email } = req.params;
+    const users = await User.find({ 'email': { "$regex": email, "$options": 'i' } });
     const transformedUsers = users.map((user) => user.transform());
     res.json(transformedUsers);
   } catch (error) {

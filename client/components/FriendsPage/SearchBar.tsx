@@ -2,7 +2,6 @@ import React from 'react'
 import { TextInput, Button } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import {
-
     Grid,
 } from '@mantine/core'
 import classes from './SearchBar.module.css';
@@ -21,7 +20,7 @@ const SearchBar = () => {
                 align="center"
                 style={{
                     width: '60%',
-                    margin:'auto'
+                    margin: 'auto'
                 }}>
                 <Grid.Col xs={2} md={2} lg={2}>
                     <Button

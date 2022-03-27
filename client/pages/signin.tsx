@@ -6,6 +6,7 @@ import { getToken } from 'next-auth/jwt'
 import { useForm } from '@mantine/form';
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SignIn = ({ providers }: any) => {
+  console.log(providers);
   const form = useForm({
     initialValues: {
       email: '',

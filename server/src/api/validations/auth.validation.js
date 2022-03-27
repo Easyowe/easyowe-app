@@ -6,7 +6,8 @@ module.exports = {
   register: {
     body: Joi.object({
       email: Joi.string().email().required(),
-      password: Joi.string().required()
+      password: Joi.string().required(),
+      username: Joi.string().required(),
     }),
   },
 
