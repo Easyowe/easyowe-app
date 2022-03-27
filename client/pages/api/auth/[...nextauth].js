@@ -9,17 +9,31 @@ export default NextAuth({
     GithubProvider({
       clientId: process.env.DEV_GITHUB_ID || process.env.GITHUB_ID,
       clientSecret: process.env.DEV_GITHUB_SECRET || process.env.GITHUB_SECRET,
+      profile(profile) {
+        return {
+          id: profile.id,
+          username: profile.name || profile.login,
+          email: profile.email,
+          profileImage: profile.avatar_url,
+        }
+      },
     }),
     // ...add more providers here
   ],
   pages: {
     signIn: '/signin',
   },
+  events: {
+    signIn({ user }) {
+      console.log(user)
+    },
+  },
   callbacks: {
-    async jwt({ token, user, account, profile, isNewUser }) {
-      console.log('info', token, user, account, profile, isNewUser)
+    jwt: async ({ token, user, isNewUser }) => {
+      if (typeof user !== typeof undefined) token.user = user
       return token
     },
   },
+
   adapter: MongoDBAdapter(clientPromise),
 })

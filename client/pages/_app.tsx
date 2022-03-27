@@ -13,9 +13,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'))
   // const dark = colorScheme === 'dark';
-
+  
   return (
     <SessionProvider session={session}>
+
       <MantineProvider
         theme={{
           // https://mantine.dev/theming/extend-theme/#extend-or-replace-colors
