@@ -8,6 +8,8 @@ import {
   useMantineColorScheme,
 } from '@mantine/core'
 import { SplitType } from 'types/split'
+import Link from 'next/link'
+import { titleToSlug } from '@/lib/titleToSlug'
 
 type Props = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -64,7 +66,9 @@ export function ActivityCard(props: Props) {
             radius={999}
             onClick={() => console.log('show some details')}
           >
-            View
+            <Link href={`/split/${props.activity._id}`}>
+              <a>View</a>
+            </Link>
           </Button>
         </Grid.Col>
       </Grid>

@@ -1,5 +1,5 @@
 export interface SplitType {
-  id: string
+  _id: string
   name: string
   people: string[]
   category: string
