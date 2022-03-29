@@ -55,7 +55,7 @@ export function HeroSection() {
                   },
                 })}
               >
-                Log In
+                Sign Up
               </Button>
               <Button
                 size="md"

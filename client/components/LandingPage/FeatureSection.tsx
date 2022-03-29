@@ -59,12 +59,12 @@ const FeatureSection = () => {
             width: '24em',
             height: '42em',
             borderRadius: '2em',
-            transform: 'skew(-6deg)',
+            transform: 'skew(6deg)',
           })}
         ></Box>
       </Group>
       <Group my={72}>
-        <Title order={3} sx={{ fontSize: '3.5em' }}>
+        <Title order={3} sx={{ fontSize: '3.5em', lineHeight: 1 }}>
           Add a record{' '}
           <span
             style={{

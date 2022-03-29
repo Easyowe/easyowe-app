@@ -1,4 +1,4 @@
-import { Card, Group, Text } from '@mantine/core'
+import { Card, Group, Text, Title } from '@mantine/core'
 import React from 'react'
 
 type Props = {
@@ -24,15 +24,22 @@ const FeatureTile = (props: Props) => {
             size="xl"
             weight={800}
             sx={(theme) => ({
-              fontSize: '2em',
+              fontSize: '1.45em',
+              textTransform: 'uppercase',
               color: theme.colors.primary[5],
             })}
           >
             {props.title}
           </Text>
-          <Text size="xl" weight={700}>
+          <Title
+            order={4}
+            sx={(theme) => ({
+              fontSize: '2em',
+              color: theme.colors.dark[1],
+            })}
+          >
             {props.subtitle}
-          </Text>
+          </Title>
         </Group>
       </Card.Section>
       <Card.Section p={16}>
