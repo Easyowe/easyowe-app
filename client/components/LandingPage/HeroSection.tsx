@@ -1,23 +1,33 @@
 import React from 'react'
-import { Box, Button, Group, Text, Title } from '@mantine/core'
+import {
+  Box,
+  Button,
+  Group,
+  Text,
+  Title,
+  useMantineTheme,
+  MediaQuery,
+} from '@mantine/core'
 import { signIn } from 'next-auth/react'
 
 export function HeroSection() {
+  const { breakpoints } = useMantineTheme()
   return (
     <Box sx={{ height: '65vh', overflow: 'hidden' }}>
       <Group>
         <Group
           direction="column"
+          position={'center'}
           sx={{
             width: '60%',
           }}
         >
           <Title
             order={1}
-            sx={{
-              fontSize: '4em',
+            sx={(theme) => ({
+              fontSize: '3em',
               lineHeight: '1',
-            }}
+            })}
           >
             Eliminate arguments and maintain relationships with help of{' '}
             <span
@@ -73,15 +83,20 @@ export function HeroSection() {
             </Group>
           </Group>
         </Group>
-        <Box
-          sx={(theme) => ({
-            background: theme.colors.dark[8],
-            width: '24em',
-            height: '42em',
-            borderRadius: '2em',
-            transform: 'skew(-6deg)',
-          })}
-        ></Box>
+        <MediaQuery
+          query={`(min-width: 0px) and (max-width: 1100px)`}
+          styles={{ display: 'none' }}
+        >
+          <Box
+            sx={(theme) => ({
+              background: theme.colors.dark[8],
+              width: '24em',
+              height: '42em',
+              borderRadius: '2em',
+              transform: 'skew(-6deg)',
+            })}
+          ></Box>
+        </MediaQuery>
       </Group>
     </Box>
   )

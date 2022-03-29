@@ -9,9 +9,7 @@ import '../styles/globals.css'
 import { SessionProvider } from 'next-auth/react'
 import { ModalsProvider } from '@mantine/modals'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
-
-// import * as modals from '@components/modals'
-// import CreateSplitModal from '@components/modals/CreateSplitModal'
+import Mantine from '@/lib/Mantine'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const [queryClient] = React.useState(() => new QueryClient())
@@ -19,46 +17,12 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('dark')
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'))
-  // const dark = colorScheme === 'dark';
 
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <SessionProvider session={session}>
-          <MantineProvider
-            theme={{
-              // https://mantine.dev/theming/extend-theme/#extend-or-replace-colors
-              colorScheme,
-              colors: {
-                dark: [
-                  '#F2F2F3',
-                  '#E5E5E6',
-                  '#CACACE',
-                  '#B0B0B5',
-                  '#95959D',
-                  '#1A1A1C',
-                  '#4A4A4F',
-                  '#1A1A1C',
-                  '#2B2B31',
-                  '#19191A',
-                ],
-                primary: [
-                  '#EBE9FC',
-                  '#D8D3F8',
-                  '#B1A7F1',
-                  '#897BEA',
-                  '#624EE4',
-                  '#5E4AE3',
-                  '#2F1BB1',
-                  '#1B0A8E',
-                  '#0A096D',
-                  '#0A096D',
-                ],
-              },
-              primaryColor: 'primary',
-            }}
-            withGlobalStyles
-          >
+          <Mantine>
             <ModalsProvider>
               <ColorSchemeProvider
                 colorScheme={colorScheme}
@@ -67,7 +31,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
                 <Component {...pageProps} />
               </ColorSchemeProvider>
             </ModalsProvider>
-          </MantineProvider>
+          </Mantine>
         </SessionProvider>
       </Hydrate>
     </QueryClientProvider>
