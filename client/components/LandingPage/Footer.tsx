@@ -10,7 +10,37 @@ const Footer = () => {
       sx={(theme) => ({
         width: '100%',
         borderTop: `1px solid ${theme.colors.dark[8]}`,
-        padding: '6em 0',
+        padding: '5em 5em',
+        '@media (min-width: 1600px)': {
+          padding: '5em 10em',
+        },
+        '@media (min-width: 1800px)': {
+          padding: '5em 25em',
+        },
+        '@media (min-width: 2300px)': {
+          padding: '5em 30em',
+        },
+        '@media (min-width: 2800px)': {
+          padding: '5em 50em',
+        },
+        '@media (min-width: 3300px)': {
+          padding: '5em 65em',
+        },
+        '@media (min-width: 3700px)': {
+          padding: '5em 75em',
+        },
+        '@media (min-width: 4200px)': {
+          padding: '5em 90em',
+        },
+        '@media (min-width: 4500px)': {
+          padding: '5em 100em',
+        },
+        '@media (min-width: 4800px)': {
+          padding: '5em 110em',
+        },
+        '@media (min-width: 5100px)': {
+          padding: '5em 120em',
+        },
         color: '#fff',
       })}
     >

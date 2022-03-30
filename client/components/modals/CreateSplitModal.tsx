@@ -60,6 +60,7 @@ export function CreateSplitModal({ opened, setOpened }: Props) {
                 '/split/',
                 {
                   ...values,
+                  // @ts-ignore
                   creator: session?.user?.id,
                 },
                 {}

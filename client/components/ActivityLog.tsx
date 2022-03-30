@@ -11,6 +11,7 @@ const ActivityLog = () => {
     data: splits,
     error,
     isLoading,
+    // @ts-ignore
   } = useSplits(session?.user?.id as string)
 
   return (

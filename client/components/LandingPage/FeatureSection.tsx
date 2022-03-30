@@ -2,11 +2,12 @@ import React from 'react'
 import { Box, Group, MediaQuery, SimpleGrid, Text, Title } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 import FeatureTile from './FeatureTile'
+import Image from 'next/image'
 
 const FeatureSection = () => {
   const isSmall = useMediaQuery('(max-width: 755px)')
   const isMedium = useMediaQuery('(min-width: 756px) and (max-width: 1023px)')
-  const isLarge = useMediaQuery('(min-width: 1300px)')
+  const isLarge = useMediaQuery('(min-width: 1200px)')
   return (
     <Box>
       <Group
@@ -43,15 +44,22 @@ const FeatureSection = () => {
           paid for you, or which friends owe you and how much.
         </Text>
       </Group>
-      <Group
-        direction="row"
-        position={`${isLarge ? 'apart' : 'center'}`}
-        sx={{ position: 'relative' }}
+      <SimpleGrid
+        cols={!isLarge ? 1 : 2}
+        sx={{
+          position: 'relative',
+          overflow: 'hidden',
+          height: '50vh',
+          marginTop: '5em',
+        }}
       >
         <SimpleGrid
           cols={isSmall ? 1 : 2}
-          sx={{ order: 2, width: `${isSmall || isMedium ? '100%' : '65%'}` }}
-          my={52}
+          sx={{
+            order: 2,
+            width: `${isSmall || isMedium || !isLarge ? '100%' : '65%'}`,
+            alignContent: `${!isLarge ? 'center' : 'flex-start'}`,
+          }}
         >
           <FeatureTile
             title="P2P"
@@ -75,16 +83,24 @@ const FeatureSection = () => {
           />
         </SimpleGrid>
         <Box
-          sx={(theme) => ({
+          sx={{
+            position: 'relative',
+            maxWidth: '100%',
+            height: '100vh',
             display: `${isLarge ? 'flex' : 'none'}`,
-            background: theme.colors.dark[8],
-            width: '24em',
-            height: '42em',
-            borderRadius: '2em',
-            transform: 'skew(6deg)',
-          })}
-        ></Box>
-      </Group>
+            alignSelf: 'end',
+            transform: 'translateY(-50%)',
+          }}
+        >
+          <Image
+            src={'/easyowe-iphone-adding-mock.svg'}
+            alt="easy adding splits with friends"
+            layout="fill"
+            objectFit="cover"
+            objectPosition="center"
+          />
+        </Box>
+      </SimpleGrid>
       <Group my={72}>
         <Title order={3} sx={{ fontSize: '3.5em', lineHeight: 1 }}>
           Add a record{' '}

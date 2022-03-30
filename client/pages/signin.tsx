@@ -15,12 +15,12 @@ import { useForm } from '@mantine/form'
 import Navbar from '@components/LandingPage/Navbar'
 import { useMediaQuery } from '@mantine/hooks'
 import Footer from '@components/LandingPage/Footer'
+import Image from 'next/image'
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SignIn = ({ providers }: any) => {
-  const isLarge = useMediaQuery('(min-width: 2600px)')
+  const isLarge = useMediaQuery('(min-width: 3100px)')
   const isMedium = useMediaQuery('(max-width: 1600px)')
-  const isSmall = useMediaQuery('(max-width: 1200px)')
   const form = useForm({
     initialValues: {
       email: '',
@@ -53,22 +53,51 @@ const SignIn = ({ providers }: any) => {
               placeItems: 'center',
               flex: 1,
               height: '100vh',
-              width: '100%',
               background: theme.colors.dark[8],
               borderRadius: '0 2em 2em 0',
-              position: 'relative',
+              padding: '12em 4em',
+              '@media (min-width: 2600px)': {
+                padding: '0em 10em',
+              },
+              '@media (min-width: 3200px)': {
+                padding: '0em 14em',
+              },
+              '@media (min-width: 3600px)': {
+                padding: '0em 18em',
+              },
+              '@media (min-width: 4200px)': {
+                padding: '0em 25em',
+              },
+              '@media (min-width: 4500px)': {
+                padding: '0em 35em',
+              },
+              '@media (min-width: 4800px)': {
+                padding: '0em 40em',
+              },
+              '@media (min-width: 5100px)': {
+                padding: '0em 42em',
+              },
               overflow: 'hidden',
+              zIndex: 1,
             })}
           >
-            <div
-              style={{
-                width: isLarge ? '50%' : '75%',
-                height: '90%',
-                background: '#555566',
-                borderRadius: '3em',
-                transform: 'rotate(-25deg)',
+            <Box
+              sx={{
+                position: 'relative',
+                minWidth: '100%',
+                height: '115vh',
+                zIndex: 10,
+                transform: 'rotate(-12deg)',
               }}
-            ></div>
+            >
+              <Image
+                src={'/easyowe-iphone-mock.svg'}
+                alt="app mock up"
+                layout="fill"
+                objectFit="cover"
+                objectPosition="center"
+              />
+            </Box>
           </Grid.Col>
 
           <Grid.Col
@@ -125,12 +154,16 @@ const SignIn = ({ providers }: any) => {
                   aliquam, purus sit amet luctus venenatis
                 </Text>
               </Box>
-              <Grid pt={'5em'} align="center">
+              <Grid
+                pt={'5em'}
+                sx={{ padding: `${isLarge ? '0 20em' : '0'}` }}
+                align="center"
+              >
                 <Grid.Col
                   md={6}
-                  style={{ height: '50%', borderRight: '1px solid' }}
+                  style={{ height: '100%', borderRight: '1px solid #606074' }}
                 >
-                  <Box sx={{ width: '80%' }} mx="auto">
+                  <Box sx={{ width: '75%' }} mx="auto">
                     <form
                       onSubmit={form.onSubmit((values) => console.log(values))}
                     >
