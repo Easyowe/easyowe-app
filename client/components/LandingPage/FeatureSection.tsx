@@ -1,8 +1,13 @@
 import React from 'react'
-import { Box, Group, SimpleGrid, Text, Title } from '@mantine/core'
+import { Box, Group, MediaQuery, SimpleGrid, Text, Title } from '@mantine/core'
+import { useMediaQuery } from '@mantine/hooks'
 import FeatureTile from './FeatureTile'
+import Image from 'next/image'
 
 const FeatureSection = () => {
+  const isSmall = useMediaQuery('(max-width: 755px)')
+  const isMedium = useMediaQuery('(min-width: 756px) and (max-width: 1023px)')
+  const isLarge = useMediaQuery('(min-width: 1200px)')
   return (
     <Box>
       <Group
@@ -10,7 +15,13 @@ const FeatureSection = () => {
         position="center"
         direction="column"
       >
-        <Title order={2} sx={{ fontSize: '3em', width: '32ch' }}>
+        <Title
+          order={2}
+          sx={{
+            fontSize: `${isSmall ? '2em' : '3em'}`,
+            width: `${isSmall || isMedium ? '100%' : '32ch'}`,
+          }}
+        >
           Earn a reputation with{' '}
           <span
             style={{
@@ -22,16 +33,34 @@ const FeatureSection = () => {
           to keep track of reliability amongst friends
         </Title>
         <Text
-          sx={(theme) => ({ width: '52ch', color: theme.colors.dark[4] })}
-          size="xl"
+          sx={(theme) => ({
+            width: `${isSmall || isMedium ? '100%' : '50%'}`,
+            color: theme.colors.dark[4],
+          })}
+          size={`${isSmall ? 'md' : 'xl'}`}
         >
           With Easyowe you don’t have to worry about that struggle, this app is
           an easy way to manage and keep track of what you owe the friend that
           paid for you, or which friends owe you and how much.
         </Text>
       </Group>
-      <Group direction="row" position="apart" sx={{ position: 'relative' }}>
-        <SimpleGrid cols={2} sx={{ order: 2, width: '65%' }} my={52}>
+      <SimpleGrid
+        cols={!isLarge ? 1 : 2}
+        sx={{
+          position: 'relative',
+          overflow: 'hidden',
+          height: '50vh',
+          marginTop: '5em',
+        }}
+      >
+        <SimpleGrid
+          cols={isSmall ? 1 : 2}
+          sx={{
+            order: 2,
+            width: `${isSmall || isMedium || !isLarge ? '100%' : '65%'}`,
+            alignContent: `${!isLarge ? 'center' : 'flex-start'}`,
+          }}
+        >
           <FeatureTile
             title="P2P"
             subtitle="Groups"
@@ -54,17 +83,26 @@ const FeatureSection = () => {
           />
         </SimpleGrid>
         <Box
-          sx={(theme) => ({
-            background: theme.colors.dark[8],
-            width: '24em',
-            height: '42em',
-            borderRadius: '2em',
-            transform: 'skew(-6deg)',
-          })}
-        ></Box>
-      </Group>
+          sx={{
+            position: 'relative',
+            maxWidth: '100%',
+            height: '100vh',
+            display: `${isLarge ? 'flex' : 'none'}`,
+            alignSelf: 'end',
+            transform: 'translateY(-50%)',
+          }}
+        >
+          <Image
+            src={'/easyowe-iphone-adding-mock.svg'}
+            alt="easy adding splits with friends"
+            layout="fill"
+            objectFit="cover"
+            objectPosition="center"
+          />
+        </Box>
+      </SimpleGrid>
       <Group my={72}>
-        <Title order={3} sx={{ fontSize: '3.5em' }}>
+        <Title order={3} sx={{ fontSize: '3.5em', lineHeight: 1 }}>
           Add a record{' '}
           <span
             style={{

@@ -30,6 +30,7 @@ const Navbar = () => {
       >
         <Group>
           <Link href={'/dashboard'}>
+            {/* @ts-ignore */}
             <a>{session?.user?.username}</a>
           </Link>
           <Menu>

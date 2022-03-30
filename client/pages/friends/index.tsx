@@ -17,6 +17,7 @@ const Friends = () => {
   const { data: session } = useSession()
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data } = useQuery<any>('user', () =>
+    // @ts-ignore
     api.get(`/users/${session?.user?.id}`)
   )
 

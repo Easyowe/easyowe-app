@@ -1,88 +1,146 @@
 import React from 'react'
-import { Box, Button, Group, Text, Title } from '@mantine/core'
+import {
+  Box,
+  Button,
+  Group,
+  Text,
+  Title,
+  useMantineTheme,
+  MediaQuery,
+  SimpleGrid,
+} from '@mantine/core'
 import { signIn } from 'next-auth/react'
+import { useMediaQuery } from '@mantine/hooks'
+import Image from 'next/image'
 
 export function HeroSection() {
+  const isSmall = useMediaQuery('(max-width: 755px)')
+  const isMedium = useMediaQuery('(min-width: 756px) and (max-width: 1023px)')
+  const isXLarge = useMediaQuery('(min-width: 1200px)')
+
   return (
-    <Box sx={{ height: '65vh', overflow: 'hidden' }}>
-      <Group>
-        <Group
-          direction="column"
-          sx={{
-            width: '60%',
+    <Group
+      sx={{
+        height: `${isXLarge ? '50vh' : '45vh'}`,
+        overflow: 'hidden',
+      }}
+    >
+      <SimpleGrid cols={!isXLarge ? 1 : 2}>
+        <MediaQuery
+          smallerThan={'md'}
+          styles={{
+            textAlign: 'center',
+            width: '100%',
+            padding: 0,
           }}
         >
-          <Title
-            order={1}
-            sx={{
-              fontSize: '4em',
-              lineHeight: '1',
-            }}
+          <Group
+            direction="column"
+            sx={{ alignSelf: 'flex-start' }}
+            position={`${isMedium || isSmall ? 'center' : 'left'}`}
           >
-            Eliminate arguments and maintain relationships with help of{' '}
-            <span
-              style={{
-                color: '#5E4AE3',
+            <Title
+              order={1}
+              sx={(theme) => ({
+                fontSize: '3em',
+                lineHeight: '1',
+              })}
+            >
+              Eliminate arguments and maintain relationships with help of{' '}
+              <span
+                style={{
+                  color: '#5E4AE3',
+                }}
+              >
+                Easyowe
+              </span>
+              .
+            </Title>
+            <Group
+              sx={{
+                width: '60%',
+                textAlign: 'left',
               }}
             >
-              Easyowe
-            </span>
-            .
-          </Title>
-          <Group
-            sx={{
-              width: '60%',
-            }}
-          >
-            <Text
-              sx={(theme) => ({
-                color: theme.colors.dark[4],
-              })}
-              size="xl"
-            >
-              Easy way to manage & keep track of owing friends and friends who
-              owe you.
-            </Text>
-            <Group>
-              <Button
-                size="md"
-                onClick={() => signIn()}
+              <Text
                 sx={(theme) => ({
-                  backgroundColor: theme.colors.primary[5],
-                  width: 'fit-content',
-                  '&:hover': {
-                    backgroundColor: theme.colors.primary[4],
-                  },
+                  color: theme.colors.dark[4],
                 })}
+                align={`${isMedium || isSmall ? 'center' : 'left'}`}
+                size="xl"
               >
-                Log In
-              </Button>
-              <Button
-                size="md"
-                variant="subtle"
-                sx={(theme) => ({
-                  color: theme.colors.dark[1],
-                  '&:hover': {
-                    color: theme.colors.dark[0],
-                    backgroundColor: 'transparent',
-                  },
-                })}
+                Easy way to manage & keep track of owing friends and friends who
+                owe you.
+              </Text>
+              <MediaQuery
+                smallerThan={'md'}
+                styles={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  width: '100%',
+                }}
               >
-                Learn More
-              </Button>
+                <Group>
+                  <Button
+                    size="md"
+                    onClick={() => signIn()}
+                    sx={(theme) => ({
+                      backgroundColor: theme.colors.primary[5],
+                      width: 'fit-content',
+                      '&:hover': {
+                        backgroundColor: theme.colors.primary[4],
+                      },
+                    })}
+                  >
+                    Sign Up
+                  </Button>
+                  <Button
+                    size="md"
+                    variant="subtle"
+                    sx={(theme) => ({
+                      color: theme.colors.dark[1],
+                      '&:hover': {
+                        color: theme.colors.dark[0],
+                        backgroundColor: 'transparent',
+                      },
+                    })}
+                  >
+                    Learn More
+                  </Button>
+                </Group>
+              </MediaQuery>
             </Group>
           </Group>
+        </MediaQuery>
+        {/* <Box
+            sx={(theme) => ({
+              background: theme.colors.dark[8],
+              height: '42em',
+              borderRadius: '2em',
+              transform: 'skew(-6deg)',
+              flex: '1',
+            })}
+          ></Box> */}
+        <Group
+          sx={{
+            position: 'relative',
+            minWidth: '100%',
+            height: '100vh',
+            flex: 1,
+            display: isXLarge ? 'flex' : 'none',
+            alignSelf: 'flex-end',
+            transform: 'translateY(5%)',
+          }}
+        >
+          <Image
+            src="/easyowe-iphone-mock.svg"
+            alt="iphone mock up"
+            layout="fill"
+            objectFit="cover"
+            objectPosition="center"
+          />
         </Group>
-        <Box
-          sx={(theme) => ({
-            background: theme.colors.dark[8],
-            width: '24em',
-            height: '42em',
-            borderRadius: '2em',
-            transform: 'skew(-6deg)',
-          })}
-        ></Box>
-      </Group>
-    </Box>
+      </SimpleGrid>
+    </Group>
   )
 }

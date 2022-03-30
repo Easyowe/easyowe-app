@@ -8,12 +8,6 @@ const Forms = () => {
   console.log(text)
   const { colorScheme } = useMantineColorScheme()
   const dark = colorScheme === 'dark'
-  // const form = useForm({
-  //     initialValues: {
-  //         search: '',
-  //         sort: 'Latest',
-  //     }
-  // });
   return (
     <form
       style={{
