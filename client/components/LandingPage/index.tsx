@@ -27,7 +27,7 @@ const Home = () => {
             ? '16em 72em'
             : isWideScreenXL
             ? '24em 82em'
-            : '5em',
+            : '10em 5em',
           '@media (max-width: 755px)': {
             padding: '5em 0.5em',
           },

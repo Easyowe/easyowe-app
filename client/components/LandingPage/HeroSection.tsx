@@ -10,17 +10,19 @@ import {
 } from '@mantine/core'
 import { signIn } from 'next-auth/react'
 import { useMediaQuery } from '@mantine/hooks'
+import Image from 'next/image'
 
 export function HeroSection() {
   const isSmall = useMediaQuery('(max-width: 755px)')
   const isMedium = useMediaQuery('(min-width: 756px) and (max-width: 1023px)')
-  const isXLarge = useMediaQuery('(min-width: 1200px)')
+  const isXLarge = useMediaQuery('(max-width: 1200px)')
 
   return (
     <Box
       sx={{
         height: `${isXLarge ? '65vh' : '45vh'}`,
         overflow: 'hidden',
+        display: 'flex',
       }}
     >
       <Group>
@@ -29,13 +31,12 @@ export function HeroSection() {
           styles={{
             textAlign: 'center',
             width: '100%',
-            marginTop: '5em',
             padding: 0,
           }}
         >
           <Group
             direction="column"
-            sx={{ flex: 1 }}
+            sx={{ flex: 1, alignSelf: 'flex-start' }}
             position={`${isMedium || isSmall ? 'center' : 'left'}`}
           >
             <Title
@@ -114,7 +115,7 @@ export function HeroSection() {
           query={`(min-width: 0px) and (max-width: 1400px)`}
           styles={{ display: 'none' }}
         >
-          <Box
+          {/* <Box
             sx={(theme) => ({
               background: theme.colors.dark[8],
               height: '42em',
@@ -122,7 +123,25 @@ export function HeroSection() {
               transform: 'skew(-6deg)',
               flex: '1',
             })}
-          ></Box>
+          ></Box> */}
+          <Group
+            sx={{
+              position: 'relative',
+              maxWidth: '100%',
+              height: '100vh',
+              flex: '1',
+              display: 'flex',
+              alignSelf: 'flex-end',
+            }}
+          >
+            <Image
+              src="/easyowe-iphone-mock.svg"
+              alt="iphone mock up"
+              layout="fill"
+              objectFit="cover"
+              objectPosition="center"
+            />
+          </Group>
         </MediaQuery>
       </Group>
     </Box>
