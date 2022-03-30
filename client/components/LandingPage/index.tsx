@@ -4,10 +4,14 @@ import { Box } from '@mantine/core'
 import FeatureSection from './FeatureSection'
 import Footer from './Footer'
 import Navbar from '@components/LandingPage/Navbar'
+import { useMediaQuery } from '@mantine/hooks'
 
 // type Props = {}
 
-const index = () => {
+const Home = () => {
+  const isWideScreen = useMediaQuery('(min-width: 3400px)')
+  const isWideScreenXL = useMediaQuery('(min-width: 4500px)')
+
   return (
     <>
       <Navbar />
@@ -19,7 +23,11 @@ const index = () => {
           display: 'flex',
           flexDirection: 'column',
           zIndex: 1,
-          padding: '5em',
+          padding: isWideScreen
+            ? '16em 72em'
+            : isWideScreenXL
+            ? '24em 82em'
+            : '5em',
           '@media (max-width: 755px)': {
             padding: '5em 0.5em',
           },
@@ -33,4 +41,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Home
