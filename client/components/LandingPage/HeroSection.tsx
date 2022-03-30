@@ -9,91 +9,118 @@ import {
   MediaQuery,
 } from '@mantine/core'
 import { signIn } from 'next-auth/react'
+import { useMediaQuery } from '@mantine/hooks'
 
 export function HeroSection() {
-  const { breakpoints } = useMantineTheme()
+  const isSmall = useMediaQuery('(max-width: 755px)')
+  const isMedium = useMediaQuery('(min-width: 756px) and (max-width: 1023px)')
+  const isXLarge = useMediaQuery('(min-width: 1200px)')
+
   return (
-    <Box sx={{ height: '65vh', overflow: 'hidden' }}>
+    <Box
+      sx={{
+        height: `${isXLarge ? '65vh' : '45vh'}`,
+        overflow: 'hidden',
+      }}
+    >
       <Group>
-        <Group
-          direction="column"
-          position={'center'}
-          sx={{
-            width: '60%',
+        <MediaQuery
+          smallerThan={'md'}
+          styles={{
+            textAlign: 'center',
+            width: '100%',
+            marginTop: '5em',
+            padding: 0,
           }}
         >
-          <Title
-            order={1}
-            sx={(theme) => ({
-              fontSize: '3em',
-              lineHeight: '1',
-            })}
+          <Group
+            direction="column"
+            sx={{ flex: 1 }}
+            position={`${isMedium || isSmall ? 'center' : 'left'}`}
           >
-            Eliminate arguments and maintain relationships with help of{' '}
-            <span
-              style={{
-                color: '#5E4AE3',
+            <Title
+              order={1}
+              sx={(theme) => ({
+                fontSize: '3em',
+                lineHeight: '1',
+              })}
+            >
+              Eliminate arguments and maintain relationships with help of{' '}
+              <span
+                style={{
+                  color: '#5E4AE3',
+                }}
+              >
+                Easyowe
+              </span>
+              .
+            </Title>
+            <Group
+              sx={{
+                width: '60%',
+                textAlign: 'left',
               }}
             >
-              Easyowe
-            </span>
-            .
-          </Title>
-          <Group
-            sx={{
-              width: '60%',
-            }}
-          >
-            <Text
-              sx={(theme) => ({
-                color: theme.colors.dark[4],
-              })}
-              size="xl"
-            >
-              Easy way to manage & keep track of owing friends and friends who
-              owe you.
-            </Text>
-            <Group>
-              <Button
-                size="md"
-                onClick={() => signIn()}
+              <Text
                 sx={(theme) => ({
-                  backgroundColor: theme.colors.primary[5],
-                  width: 'fit-content',
-                  '&:hover': {
-                    backgroundColor: theme.colors.primary[4],
-                  },
+                  color: theme.colors.dark[4],
                 })}
+                size="xl"
               >
-                Sign Up
-              </Button>
-              <Button
-                size="md"
-                variant="subtle"
-                sx={(theme) => ({
-                  color: theme.colors.dark[1],
-                  '&:hover': {
-                    color: theme.colors.dark[0],
-                    backgroundColor: 'transparent',
-                  },
-                })}
+                Easy way to manage & keep track of owing friends and friends who
+                owe you.
+              </Text>
+              <MediaQuery
+                smallerThan={'md'}
+                styles={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  width: '100%',
+                }}
               >
-                Learn More
-              </Button>
+                <Group>
+                  <Button
+                    size="md"
+                    onClick={() => signIn()}
+                    sx={(theme) => ({
+                      backgroundColor: theme.colors.primary[5],
+                      width: 'fit-content',
+                      '&:hover': {
+                        backgroundColor: theme.colors.primary[4],
+                      },
+                    })}
+                  >
+                    Sign Up
+                  </Button>
+                  <Button
+                    size="md"
+                    variant="subtle"
+                    sx={(theme) => ({
+                      color: theme.colors.dark[1],
+                      '&:hover': {
+                        color: theme.colors.dark[0],
+                        backgroundColor: 'transparent',
+                      },
+                    })}
+                  >
+                    Learn More
+                  </Button>
+                </Group>
+              </MediaQuery>
             </Group>
           </Group>
-        </Group>
+        </MediaQuery>
         <MediaQuery
-          query={`(min-width: 0px) and (max-width: 1100px)`}
+          query={`(min-width: 0px) and (max-width: 1400px)`}
           styles={{ display: 'none' }}
         >
           <Box
             sx={(theme) => ({
               background: theme.colors.dark[8],
-              width: '24em',
               height: '42em',
               borderRadius: '2em',
               transform: 'skew(-6deg)',
+              flex: '1',
             })}
           ></Box>
         </MediaQuery>

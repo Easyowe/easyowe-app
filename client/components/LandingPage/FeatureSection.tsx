@@ -1,8 +1,12 @@
 import React from 'react'
-import { Box, Group, SimpleGrid, Text, Title } from '@mantine/core'
+import { Box, Group, MediaQuery, SimpleGrid, Text, Title } from '@mantine/core'
+import { useMediaQuery } from '@mantine/hooks'
 import FeatureTile from './FeatureTile'
 
 const FeatureSection = () => {
+  const isSmall = useMediaQuery('(max-width: 755px)')
+  const isMedium = useMediaQuery('(min-width: 756px) and (max-width: 1023px)')
+  const isLarge = useMediaQuery('(min-width: 1300px)')
   return (
     <Box>
       <Group
@@ -10,7 +14,13 @@ const FeatureSection = () => {
         position="center"
         direction="column"
       >
-        <Title order={2} sx={{ fontSize: '3em', width: '32ch' }}>
+        <Title
+          order={2}
+          sx={{
+            fontSize: `${isSmall ? '2em' : '3em'}`,
+            width: `${isSmall || isMedium ? '100%' : '32ch'}`,
+          }}
+        >
           Earn a reputation with{' '}
           <span
             style={{
@@ -22,16 +32,27 @@ const FeatureSection = () => {
           to keep track of reliability amongst friends
         </Title>
         <Text
-          sx={(theme) => ({ width: '52ch', color: theme.colors.dark[4] })}
-          size="xl"
+          sx={(theme) => ({
+            width: `${isSmall || isMedium ? '100%' : '50%'}`,
+            color: theme.colors.dark[4],
+          })}
+          size={`${isSmall ? 'md' : 'xl'}`}
         >
           With Easyowe you don’t have to worry about that struggle, this app is
           an easy way to manage and keep track of what you owe the friend that
           paid for you, or which friends owe you and how much.
         </Text>
       </Group>
-      <Group direction="row" position="apart" sx={{ position: 'relative' }}>
-        <SimpleGrid cols={2} sx={{ order: 2, width: '65%' }} my={52}>
+      <Group
+        direction="row"
+        position={`${isLarge ? 'apart' : 'center'}`}
+        sx={{ position: 'relative' }}
+      >
+        <SimpleGrid
+          cols={isSmall ? 1 : 2}
+          sx={{ order: 2, width: `${isSmall || isMedium ? '100%' : '65%'}` }}
+          my={52}
+        >
           <FeatureTile
             title="P2P"
             subtitle="Groups"
@@ -55,6 +76,7 @@ const FeatureSection = () => {
         </SimpleGrid>
         <Box
           sx={(theme) => ({
+            display: `${isLarge ? 'flex' : 'none'}`,
             background: theme.colors.dark[8],
             width: '24em',
             height: '42em',

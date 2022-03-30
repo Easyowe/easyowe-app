@@ -12,7 +12,6 @@ const index = () => {
     <>
       <Navbar />
       <Box
-        p={72}
         sx={(theme) => ({
           backgroundColor: theme.colors.dark[5],
           color: theme.colors.dark[0],
@@ -20,6 +19,10 @@ const index = () => {
           display: 'flex',
           flexDirection: 'column',
           zIndex: 1,
+          padding: '5em',
+          '@media (max-width: 755px)': {
+            padding: '5em 0.5em',
+          },
         })}
       >
         <HeroSection />
