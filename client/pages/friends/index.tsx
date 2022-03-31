@@ -9,18 +9,13 @@ import {
 } from '@mantine/core'
 import SearchBar from '@components/FriendsPage/SearchBar'
 import Navbar from '@components/Navbar'
-import api from '@/lib/axiosStore'
-import { useQuery } from 'react-query'
 import { useSession } from 'next-auth/react'
+import { useUser } from 'hooks/useUser'
+import { IFriend } from 'types/user'
 
 const Friends = () => {
   const { data: session } = useSession()
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data } = useQuery<any>('user', () =>
-    // @ts-ignore
-    api.get(`/users/${session?.user?.id}`)
-  )
-
+  const { data: user } = useUser(session?.user?.id as string)
   const { colorScheme } = useMantineColorScheme()
 
   return (
@@ -32,7 +27,7 @@ const Friends = () => {
         </Group>
 
         <Group direction="column" sx={{ width: '100%' }} align="center">
-          {data?.data.friends?.map((friend: { username: string }) => (
+          {user?.friends?.map((friend: IFriend) => (
             <Group
               key={friend.username}
               mt="xs"

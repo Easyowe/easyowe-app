@@ -1,15 +1,11 @@
+import '../styles/globals.css'
 import React, { useState } from 'react'
 import type { AppProps } from 'next/app'
-import {
-  ColorScheme,
-  ColorSchemeProvider,
-  MantineProvider,
-} from '@mantine/core'
-import '../styles/globals.css'
+import { ColorScheme, ColorSchemeProvider } from '@mantine/core'
 import { SessionProvider } from 'next-auth/react'
 import { ModalsProvider } from '@mantine/modals'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
-import Mantine from '@/lib/Mantine'
+import Mantine from 'theme/Mantine'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const [queryClient] = React.useState(() => new QueryClient())

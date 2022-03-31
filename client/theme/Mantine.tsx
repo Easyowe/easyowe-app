@@ -6,9 +6,9 @@ type Props = {
 }
 
 const Mantine = (props: Props) => {
-  const [colorScheme, setColorScheme] = useState<ColorScheme>('dark')
-  const toggleColorScheme = (value?: ColorScheme) =>
-    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'))
+  const [colorScheme] = useState<ColorScheme>('dark')
+  /*   const toggleColorScheme = (value?: ColorScheme) =>
+    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark')) */
   return (
     <>
       <MantineProvider

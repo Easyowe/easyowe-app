@@ -30,7 +30,6 @@ const schema = z.object({
 export function CreateSplitModal({ opened, setOpened }: Props) {
   const queryClient = useQueryClient()
   const { data: session } = useSession()
-  console.log(session)
   const { colors } = useMantineTheme()
   const form = useForm({
     schema: zodResolver(schema),
@@ -60,7 +59,6 @@ export function CreateSplitModal({ opened, setOpened }: Props) {
                 '/split/',
                 {
                   ...values,
-                  // @ts-ignore
                   creator: session?.user?.id,
                 },
                 {}

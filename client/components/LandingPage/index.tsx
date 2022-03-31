@@ -4,15 +4,8 @@ import { Box } from '@mantine/core'
 import FeatureSection from './FeatureSection'
 import Footer from './Footer'
 import Navbar from '@components/LandingPage/Navbar'
-import { useMediaQuery } from '@mantine/hooks'
-
-// type Props = {}
 
 const Home = () => {
-  const isXLarge = useMediaQuery('(min-width: 2100px)')
-  const isWideScreen = useMediaQuery('(min-width: 3400px)')
-  const isWideScreenXL = useMediaQuery('(min-width: 4500px)')
-
   return (
     <>
       <Navbar />
