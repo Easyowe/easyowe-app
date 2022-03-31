@@ -2,6 +2,7 @@ import NextAuth from 'next-auth'
 import GithubProvider from 'next-auth/providers/github'
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
 import clientPromise from 'lib/mongodb'
+import { IUser } from 'types/user'
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -34,8 +35,8 @@ export default NextAuth({
       return token
     },
     session: async ({ session, user }) => {
-      session.user = user
-      return session
+      session.user = user as IUser
+      return Promise.resolve(session)
     },
   },
 

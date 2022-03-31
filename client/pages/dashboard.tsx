@@ -5,9 +5,12 @@ import Overview from '@components/Overview'
 import ThemeButton from '@components/ThemeButton'
 import { Container } from '@mantine/core'
 import { NextPage } from 'next'
+import { useSession } from 'next-auth/react'
 import React from 'react'
 
 const Dashboard: NextPage = () => {
+  const { data: session } = useSession()
+  console.log(session)
   return (
     <>
       <Navbar />
