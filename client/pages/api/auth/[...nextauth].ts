@@ -34,8 +34,9 @@ export default NextAuth({
       if (typeof user !== typeof undefined) token.user = user
       return token
     },
-    session: async ({ session, user }) => {
-      session.user = user as IUser
+    session: async ({ session, user, token }) => {
+      session.token = token
+      session.username = user
       return Promise.resolve(session)
     },
   },
