@@ -35,7 +35,11 @@ export default NextAuth({
     },
     session: async ({ session, user, token }) => {
       session.token = token
-      session.username = user
+
+      /* have to ignore types due to declaring global user type to interact properly with the data, hence "needs" more args to assign the session.user to user */
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      /* @ts-ignore */
+      session.user = user
       return Promise.resolve(session)
     },
   },
