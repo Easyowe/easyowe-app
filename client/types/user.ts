@@ -3,6 +3,7 @@ export interface IFriend {
   username: string
 }
 export interface IUser {
+  user: IUser
   id?: string
   username: string
   email: string
