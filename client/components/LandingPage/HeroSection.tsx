@@ -1,11 +1,9 @@
 import React from 'react'
 import {
-  Box,
   Button,
   Group,
   Text,
   Title,
-  useMantineTheme,
   MediaQuery,
   SimpleGrid,
 } from '@mantine/core'
@@ -41,7 +39,7 @@ export function HeroSection() {
           >
             <Title
               order={1}
-              sx={(theme) => ({
+              sx={() => ({
                 fontSize: '3em',
                 lineHeight: '1',
               })}

@@ -5,8 +5,6 @@ import React from 'react'
 import { Plus, Friends, ArrowsLeftRight } from 'tabler-icons-react'
 import Link from 'next/link'
 
-// type Props = {}
-
 const Navbar = () => {
   const [opened, setOpened] = React.useState(false)
 
@@ -30,7 +28,6 @@ const Navbar = () => {
       >
         <Group>
           <Link href={'/dashboard'}>
-            {/* @ts-ignore */}
             <a>{session?.user?.username}</a>
           </Link>
           <Menu>

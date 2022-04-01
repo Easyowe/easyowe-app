@@ -5,7 +5,6 @@ import React, { useState } from 'react'
 
 const Forms = () => {
   const [text, setText] = useState('')
-  console.log(text)
   const { colorScheme } = useMantineColorScheme()
   const dark = colorScheme === 'dark'
   return (
@@ -27,6 +26,7 @@ const Forms = () => {
         radius="xl"
         size="md"
         variant={dark ? 'default' : 'filled'}
+        value={text}
       />
       <NativeSelect
         size="md"

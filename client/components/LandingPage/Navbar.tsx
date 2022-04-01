@@ -4,9 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-type Props = {}
-
-const Navbar = (props: Props) => {
+const Navbar = () => {
   const { colors } = useMantineTheme()
   return (
     <Group

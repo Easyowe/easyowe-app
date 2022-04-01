@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Group, MediaQuery, SimpleGrid, Text, Title } from '@mantine/core'
+import { Box, Group, SimpleGrid, Text, Title } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 import FeatureTile from './FeatureTile'
 import Image from 'next/image'

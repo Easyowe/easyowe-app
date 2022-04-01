@@ -1,6 +1,11 @@
-export interface UserType {
-  _id?: string
-  name: string
+export interface IFriend {
+  userId: string
+  username: string
+}
+export interface IUser {
+  id?: string
+  username: string
   email: string
-  friends: string[]
+  friends?: IFriend[]
+  profileImage?: string
 }

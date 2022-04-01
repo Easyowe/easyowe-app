@@ -15,3 +15,10 @@ declare module 'next/app' {
     }
   }
 }
+
+export interface User {
+  username?: string | null
+  email?: string | null
+  image?: string | null
+  id?: string | null
+}
