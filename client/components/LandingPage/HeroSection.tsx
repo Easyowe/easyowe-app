@@ -110,15 +110,6 @@ export function HeroSection() {
             </Group>
           </Group>
         </MediaQuery>
-        {/* <Box
-            sx={(theme) => ({
-              background: theme.colors.dark[8],
-              height: '42em',
-              borderRadius: '2em',
-              transform: 'skew(-6deg)',
-              flex: '1',
-            })}
-          ></Box> */}
         <Group
           sx={{
             position: 'relative',

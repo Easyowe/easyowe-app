@@ -22,8 +22,8 @@ const MobileMenu = ({ open }: NavbarProps) => {
     <Group
       sx={{
         position: 'absolute',
-        backgroundImage: `linear-gradient(to top right, rgba(26, 26, 28, 0.75), #3532367e)`,
-        backdropFilter: 'blur(4px)',
+        backgroundImage: `linear-gradient(to top right, rgba(26, 26, 28, 1), #3532367e)`,
+        backdropFilter: 'blur(6px)',
         top: 0,
         right: 0,
         width: '100%',
@@ -33,14 +33,89 @@ const MobileMenu = ({ open }: NavbarProps) => {
         zIndex: 20,
       }}
     >
-      <Center sx={{ width: '100%' }}>
-        <Group direction="column">
+      <Center
+        sx={{
+          width: '100%',
+        }}
+      >
+        <Group direction="column" align={'center'}>
           <Link href="/">
-            <a style={{ fontSize: '1.75em', fontWeight: 'bold' }}>Home</a>
+            <a>
+              <Text
+                sx={{
+                  fontSize: '1.75em',
+                  fontWeight: 'bold',
+                  backgroundImage: `linear-gradient(to top right, rgba(26, 26, 28, 1), #3532367e)`,
+                  backdropFilter: 'blur(6px)',
+                  border: '1px solid #3532367e',
+                  borderRadius: '0.5em',
+                  padding: '0.5em 2em',
+                  transition: 'all 200ms ease',
+                  width: '100%',
+
+                  '&:hover': {
+                    backgroundImage: `linear-gradient(to top right, rgba(26, 26, 28, 1), #413d437c)`,
+                    transform: 'scale(1.05)',
+                  },
+                }}
+              >
+                Home
+              </Text>
+            </a>
           </Link>
           <Link href="/about">
-            <a style={{ fontSize: '1.75em', fontWeight: 'bold' }}>About</a>
+            <a>
+              <Text
+                sx={{
+                  fontSize: '1.75em',
+                  fontWeight: 'bold',
+                  backgroundImage: `linear-gradient(to top right, rgba(26, 26, 28, 1), #3532367e)`,
+                  backdropFilter: 'blur(6px)',
+                  border: '1px solid #3532367e',
+                  borderRadius: '0.5em',
+                  padding: '0.5em 2em',
+                  transition: 'all 200ms ease',
+                  width: '100%',
+
+                  '&:hover': {
+                    backgroundImage: `linear-gradient(to top right, rgba(26, 26, 28, 1), #413d437c)`,
+                    transform: 'scale(1.05)',
+                  },
+                }}
+              >
+                About
+              </Text>
+            </a>
           </Link>
+          <Group direction="column" align="center" pt="xl">
+            <Button
+              size="md"
+              onClick={() => signIn()}
+              sx={(theme) => ({
+                backgroundColor: theme.colors.primary[5],
+                width: 'fit-content',
+                '&:hover': {
+                  backgroundColor: theme.colors.primary[4],
+                },
+              })}
+            >
+              Sign Up
+            </Button>
+            <Button
+              size="md"
+              variant="subtle"
+              onClick={() => signIn()}
+              sx={(theme) => ({
+                width: 'fit-content',
+                color: theme.colors.dark[1],
+                '&:hover': {
+                  backgroundColor: 'transparent',
+                },
+              })}
+            >
+              Log In
+            </Button>
+          </Group>
         </Group>
       </Center>
     </Group>
@@ -51,7 +126,18 @@ const Navbar = () => {
   const { colors } = useMantineTheme()
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState<boolean>(false)
 
-  const openMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen)
+  const openMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen)
+  }
+
+  React.useEffect(() => {
+    document.body.style.overflowX = 'hidden'
+    if (mobileMenuOpen) {
+      document.body.style.overflowY = 'hidden'
+    } else {
+      document.body.style.overflowY = 'scroll'
+    }
+  })
 
   const isSmall = useMediaQuery('(max-width: 676px)')
   return (
